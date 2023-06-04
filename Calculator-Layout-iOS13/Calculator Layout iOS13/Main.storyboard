@@ -286,7 +286,6 @@
                                                             </stackView>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstItem="ejW-Cr-wiN" firstAttribute="leading" secondItem="63a-Y6-yY4" secondAttribute="trailing" id="4U7-Wb-QWO"/>
                                                             <constraint firstAttribute="bottom" secondItem="63a-Y6-yY4" secondAttribute="bottom" id="EL3-0C-S9l"/>
                                                         </constraints>
                                                     </stackView>
