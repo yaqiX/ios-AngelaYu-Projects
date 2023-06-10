@@ -1,20 +1,14 @@
 //
-//  ViewController.swift
+//  QuizBrain.swift
 //  Quizzler-iOS13
 //
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
+//  Created by Xieh on 2023/6/10.
+//  Copyright © 2023 The App Brewery. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ViewController: UIViewController {
-    
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
-    
+struct QuizBrain {
     let quiz = [
         Question(q:"The Earth is the largest planet in our solar system.", a:"False"),
         Question(q:  "The Great Wall of China is visible from space.", a: "False"),
@@ -36,45 +30,11 @@ class ViewController: UIViewController {
     ]
     var questionNumber = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        updateUI()
-    }
-    
-    
-    @IBAction func answerButtonPressed(_ sender: UIButton) {
-        // will be trigegred either of the button pressed
-        let userAnswer = sender.currentTitle //T or F
-        let actualQuestion = quiz[questionNumber]
-        let actualAnswer = actualQuestion.answer
-        
-        if userAnswer == actualAnswer{
-            print("Right!")
-            sender.backgroundColor = UIColor.green
+    func checkAnswer(_ userAnswer: String){
+        if userAnswer == quiz[questionNumber].answer {
+            
         }else{
-            sender.backgroundColor = UIColor.red
-            print("Wrong!")
+            
         }
-        
-        if questionNumber + 1 < quiz.count {
-            questionNumber += 1
-        }else {
-            questionNumber  = 0
-        }
-        Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
-        
-        updateUI()
     }
-    
-    @objc func updateUI(){
-        questionLabel.text = quiz[questionNumber].text
-        // change the color back
-        trueButton.backgroundColor = UIColor.clear
-        falseButton.backgroundColor = UIColor.clear
-        //progressBar
-        progressBar.progress = Float(questionNumber + 1)/Float(quiz.count)
-    }
-    
 }
-
