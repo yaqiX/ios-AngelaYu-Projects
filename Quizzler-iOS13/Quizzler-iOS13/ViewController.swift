@@ -16,11 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var falseButton: UIButton!
     
     let quiz = [
-        Question(text:"The Earth is the largest planet in our solar system.", answer:"False"),
-        Question(text:  "The Great Wall of China is visible from space.", answer: "False"),
-        Question(text: "Dolphins are mammals.", answer: "True"),
-        Question(text: "The Eiffel Tower is located in London.", answer: "False"),
-        Question(text: "Water boils at 100 degrees Fahrenheit (212 degrees Celsius).", answer: "False")
+        Question(q:"The Earth is the largest planet in our solar system.", a:"False"),
+        Question(q:  "The Great Wall of China is visible from space.", a: "False"),
+        Question(q: "Dolphins are mammals.", a: "True"),
+        Question(q: "The Eiffel Tower is located in London.", a: "False"),
+        Question(q: "Water boils at 100 degrees Fahrenheit (212 degrees Celsius).", a: "False")
     ]
     var questionNumber = 0
     
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     }
     
     func updateUI(){
-        questionLabel.text = quiz[questionNumber].text;]
+        questionLabel.text = quiz[questionNumber].text
     }
     
 }
