@@ -27,29 +27,31 @@ class ViewController: UIViewController {
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         // will be trigegred either of the button pressed
-        let userAnswer = sender.currentTitle //T or F
-        quizBrain.checkAnswer(userAnswer)
+        let userAnswer = sender.currentTitle! //T or F
+        let userGotItRight = quizBrain.checkAnswer(userAnswer)
         let actualQuestion = quiz[questionNumber]
         let actualAnswer = actualQuestion.answer
         
         
-        if questionNumber + 1 < quiz.count {
-            questionNumber += 1
+        if userGotItRight {
+            sender.backgroundColor = UIColor.green
         }else {
-            questionNumber  = 0
+            sender.backgroundColor = UIColor.red
         }
+        
+        quizBrain.nextQuestion()
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
         
         updateUI()
     }
     
     @objc func updateUI(){
-        questionLabel.text = quiz[questionNumber].text
+        questionLabel.text = quizBrain.getQuestionText()
         // change the color back
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
         //progressBar
-        progressBar.progress = Float(questionNumber + 1)/Float(quiz.count)
+        progressBar.progress = quizBrain.getProgress()
     }
     
 }
