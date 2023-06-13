@@ -29,15 +29,19 @@ struct QuizBrain {
         Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
     ]
     var questionNumber = 0
-    
-    func checkAnswer(_ userAnswer: String) -> Bool{
+    var score = 0
+    mutating func checkAnswer(_ userAnswer: String) -> Bool{
         if userAnswer == quiz[questionNumber].answer {
+            score += 1
             return true
         }else{
             return false
         }
     }
     
+    func getScore() ->Int{
+        return score
+    }
     func getQuestionText() -> String{
         return quiz[questionNumber].text
     }
@@ -46,12 +50,15 @@ struct QuizBrain {
         let progress = Float(questionNumber)/Float(quiz.count)
         return progress
     }
-    
-    func nextQuestion() {
+    // cannot just change a proporty of our struct from its methods
+    // have to use mutating so we can do within the methods
+    mutating func nextQuestion() {
         if questionNumber + 1 < quiz.count {
             questionNumber += 1
         } else{
             questionNumber = 0
+            score = 0
         }
     }
+
 }

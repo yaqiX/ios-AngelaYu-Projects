@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var scoreLabel: UILabel!
     
-
     var quizBrain = QuizBrain()
     
     override func viewDidLoad() {
@@ -29,30 +29,29 @@ class ViewController: UIViewController {
         // will be trigegred either of the button pressed
         let userAnswer = sender.currentTitle! //T or F
         let userGotItRight = quizBrain.checkAnswer(userAnswer)
-        let actualQuestion = quiz[questionNumber]
-        let actualAnswer = actualQuestion.answer
-        
         
         if userGotItRight {
             sender.backgroundColor = UIColor.green
         }else {
-            sender.backgroundColor = UIColor.red
-        }
+            sender.backgroundColor = UIColor.red}
         
         quizBrain.nextQuestion()
+        
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
         
-        updateUI()
     }
     
     @objc func updateUI(){
         questionLabel.text = quizBrain.getQuestionText()
-        // change the color back
+            // change the color back
+        progressBar.progress = quizBrain.getProgress()
+        scoreLabel.text = "Score: \(quizBrain.getScore())"
+        
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
-        //progressBar
-        progressBar.progress = quizBrain.getProgress()
-    }
+      
+            }
     
 }
 
+// goal is to only delegate tasks to the quizBrain
