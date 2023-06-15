@@ -75,6 +75,12 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="fwF-55-PpX" secondAttribute="trailing" constant="10" id="4Fe-VS-WIU"/>
+                                    <constraint firstAttribute="trailing" secondItem="9QG-pg-Frw" secondAttribute="trailing" constant="10" id="U5y-ur-2Sb"/>
+                                    <constraint firstItem="fwF-55-PpX" firstAttribute="leading" secondItem="b0T-eg-tGE" secondAttribute="leading" constant="10" id="jy8-gf-uOn"/>
+                                    <constraint firstItem="9QG-pg-Frw" firstAttribute="leading" secondItem="b0T-eg-tGE" secondAttribute="leading" constant="10" id="lt4-Ne-cGF"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
