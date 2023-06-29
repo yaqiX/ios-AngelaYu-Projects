@@ -1,33 +1,62 @@
-//
-//  main.swift
-//  protocols demo
-//
-//  Created by Xieh on 2023/6/27.
-//
+
+protocol AdvancedLifeSuport {
+    func performCPR()
+    // people who are certified with ALS must be ablt to perform CPR
+}
 
 
-class Bird {
-    var isFemale =  true
+class EmergencyCallHandler {
     
-    func layEgg(){
-        if isFemale {
-            print("make a new bird")
-        }
+    var delegate: AdvancedLifeSuport?
+    
+    func assessSituation(){
+        print("Ask for Information")
     }
-    
-    func fly(){
-        print("fly away")
+    func informEmergency(){
+        delegate?.performCPR()
     }
 }
 
-class Eagle: Bird {
+
+class Doctor: AdvancedLifeSuport {
     
-    func soar(){
-        print("glide away")
+    init(handler: EmergencyCallHandler) {
+        handler.delegate = self
+    }
+    
+    func performCPR() {
+        print("Doctor perform CPR")
+    }
+    func useStethescope(){
+        print("check heartbeat")
     }
 }
 
-let myEagle = Eagle()
-myEagle.fly()
-myEagle.layEgg()
-myEagle.soar()
+class Surgeon: Doctor {
+    override func performCPR() {
+        super.performCPR() //extending for the subclass surgeon
+        print("Multitasking CPR")
+    }
+    
+    func prepareSurgery(){
+        print("Preparing for surgery")
+    }
+}
+
+struct Paramedic: AdvancedLifeSuport {
+    
+    init(handler: EmergencyCallHandler) {
+        handler.delegate = self
+    }
+    
+    func performCPR() {
+        print("performing CPR")
+    }
+}
+
+let emily = EmergencyCallHandler()
+let pete = Paramedic(handler: emily)
+emily.assessSituation()
+emily.informEmergency()
+
+
