@@ -22,7 +22,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         searchTextField.delegate = self // will respond to keyboard
         weatherManager.delegate = self
     }
-
+// local parameter name
     @IBAction func searchPressed(_ sender: UIButton) {
         searchTextField.endEditing(true)
         print(searchTextField.text!)
@@ -61,8 +61,12 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         
     }
     
-    func didUpdateWeather(weather: WeatherModel){
+    func didUpdateWeather(_ weatherManager:WeatherManager, weather: WeatherModel){
         
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
     }
     
 }
