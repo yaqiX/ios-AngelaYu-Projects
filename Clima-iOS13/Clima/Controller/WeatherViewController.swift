@@ -8,7 +8,7 @@
 // UITextFieldDelegate
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate {
+class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -20,6 +20,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self // will respond to keyboard
+        weatherManager.delegate = self
     }
 
     @IBAction func searchPressed(_ sender: UIButton) {
@@ -57,6 +58,10 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
         //after done editing
         searchTextField.text = ""
         // use the searchTextField.text to get the weather for city
+        
+    }
+    
+    func didUpdateWeather(weather: WeatherModel){
         
     }
     
