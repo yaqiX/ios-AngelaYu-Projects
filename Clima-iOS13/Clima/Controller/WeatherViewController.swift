@@ -29,6 +29,11 @@ class WeatherViewController: UIViewController {
         searchTextField.delegate = self // will respond to keyboard
         weatherManager.delegate = self
     }
+    
+    @IBAction func locatoinPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate
@@ -96,6 +101,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
         print("Got location")
         // might get several locations so need to get the last one
         if let location = locations.last{
+            locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
             weatherManager.fetchWeather(latitude:lat, longitude: lon)
