@@ -51,6 +51,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>We would need to have your location to get the current local weather </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We would need to have your location to get the current local weather </string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

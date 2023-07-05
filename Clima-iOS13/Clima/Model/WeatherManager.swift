@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager:WeatherManager, weather: WeatherModel)
@@ -23,6 +24,10 @@ struct WeatherManager{
         performRequest(with: urlString)
     }
     
+    func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees){
+        let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
+        performRequest(with: urlString)
+    }
     func performRequest(with urlString: String){
         // 1. create a URL
         if let url = URL(string: urlString){
@@ -36,7 +41,6 @@ struct WeatherManager{
                 }
                 if let safeData = data {
                     if let weather = self.parseJSON(safeData){
-                       // let weatherVC = WeatherViewController()
                         self.delegate?.didUpdateWeather(self, weather: weather)
                         // in closure must add self if we call method in the current class
                     }
