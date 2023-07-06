@@ -39,6 +39,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let selectedCurrency = coinManager.currencyArray[row]
         coinManager.getCoinPrice(for: selectedCurrency)
     }
+    
+//    func didFailWithError(error: Error) {
+//        print(error)
+//    }
 
 }
 
