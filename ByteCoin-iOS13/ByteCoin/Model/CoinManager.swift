@@ -14,6 +14,7 @@
 import Foundation
 
 protocol CoinManagerDelegate {
+    func didUpdateRate(rateString: String, currency: String)
     func didFailWithError(error: Error)
 }
 
@@ -31,7 +32,6 @@ struct CoinManager {
         
         if let url = URL(string: urlString){
             let session = URLSession(configuration: .default)
-            // 3. Give the session a task
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil{
                     self.delegate?.didFailWithError(error: error!)
@@ -39,16 +39,16 @@ struct CoinManager {
                 }
                 
                 if let safeData = data {
-                    let bitcoinPrice = self.parseJSON(safeData)
+                    if let bitcoinPrice = self.parseJSON(safeData) {
+                        let rateString = String(format: "%.2f", bitcoinPrice)
+                        self.delegate?.didUpdateRate(rateString: rateString, currency: currency)
+                    }
                 }
             }
             task.resume()
         }
     }
 
-    
-    
-    
     
     func parseJSON(_ data:Data) -> Double?{
         let decoder = JSONDecoder()
