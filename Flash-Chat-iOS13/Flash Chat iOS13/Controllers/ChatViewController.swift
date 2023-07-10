@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class ChatViewController: UIViewController {
+    
+    let db = Firestore.firestore()
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
@@ -33,8 +35,18 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
-        let messageBody = messageTextfield.text
-        let messageSender
+        if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email {
+            db.collection(K.FStore.collectionName).addDocument(data:[
+                K.FStore.senderField: messageSender,
+                K.FStore.bodyField: messageBody
+            ]) { (error) in
+                if let e = error {
+                    print("Error adding documen, \(e)")
+                } else {
+                    print("Document added")
+                }
+            }
+        }
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
