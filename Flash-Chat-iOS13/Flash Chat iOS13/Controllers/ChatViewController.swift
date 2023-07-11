@@ -16,11 +16,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextfield: UITextField!
     
-    var messages: [Message] = [
-        Message(sender: "1@2.com", body: "Hi"),
-        Message(sender: "aaa@a.com", body: "Hey"),
-        Message(sender: "1@2.com", body: "Sup")
-    ]
+    var messages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +27,32 @@ class ChatViewController: UIViewController {
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         
-        
+        loadMessages()
+    }
+    
+    func loadMessages(){
+        db.collection(K.FStore.collectionName).addSnapshotListener { (querySnapshot, err) in
+            
+            self.messages = []
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                if let snapshotDocument = querySnapshot?.documents{
+                    
+                    for doc in snapshotDocument {
+                        let data = doc.data()
+                        if let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String {
+                            let newMessage = Message(sender: messageSender, body: messageBody)
+                            self.messages.append(newMessage)
+                            
+                            DispatchQueue.main.async { //fetch main thread
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
