@@ -11,10 +11,14 @@ import UIKit
 class TodoListViewController: UITableViewController {
 
     var itemArray = ["Buy Egg","Get Gas","Take Shower"]
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
     }
     // MARK: - Tableview datasource methods
     
@@ -28,6 +32,7 @@ class TodoListViewController: UITableViewController {
         
         return cell
     }
+    
     
     // MARK: - Tableview delegate methods
     
@@ -52,14 +57,18 @@ class TodoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add New To Do Event", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Event", style: .default) { (action) in
-            // once user clicks the add item buttion on our uialert, following will happen
+            
+            // once user clicks the add item buttion on our UIalert, following will happen
             self.itemArray.append(textField.text!)
+            // save updated array to user default
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
             self.tableView.reloadData()
         }
         
         alert.addTextField{ (alertTextField) in
             alertTextField.placeholder = "Type Your Even Here ..."
-            textField = alertTextField
+            textField = alertTextField 
         }
         alert.addAction(action)
         
